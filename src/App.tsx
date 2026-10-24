@@ -77,7 +77,7 @@ export default function App() {
       <main>
         <Hero profile={profile} />
         <About />
-        <Quote text="Sometimes you gotta run before you can walk." />
+        <Quote text="Sometimes you gotta run before you can walk." bg="/stark/logo.jpg" />
         {profiles[profile].order.map((id) => sections[id])}
         <Quote text="Part of the journey is the end." />
         <OffDuty />
