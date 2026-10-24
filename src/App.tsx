@@ -81,7 +81,7 @@ export default function App() {
         {profiles[profile].order.map((id) => sections[id])}
         <Quote text="Part of the journey is the end." />
         <OffDuty />
-        <Quote text="I am Iron Man." />
+        <Quote text="Take away my frameworks, my pipelines, my automation suites. I'm still a QA." by="Balaji, after Iron Man 3" />
         <Contact />
       </main>
       <Footer />
