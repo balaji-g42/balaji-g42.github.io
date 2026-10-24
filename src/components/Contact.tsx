@@ -14,7 +14,7 @@ export default function Contact() {
       <div
         className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center opacity-[0.16]"
         style={{
-          backgroundImage: "url(/stark/reactor.jpg)",
+          backgroundImage: "url(/stark/reactor.webp)",
           maskImage: "linear-gradient(to bottom, transparent, #000 35%, transparent)",
           WebkitMaskImage: "linear-gradient(to bottom, transparent, #000 35%, transparent)",
         }}

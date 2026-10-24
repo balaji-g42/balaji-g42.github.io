@@ -5,7 +5,7 @@ export default function Backdrop() {
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_45%,rgba(229,34,47,0.16),transparent_65%)]" />
       <img
-        src="/stark/logo.jpg"
+        src="/stark/logo.webp"
         alt=""
         className="absolute left-1/2 top-1/2 w-[94vw] max-w-[1400px] -translate-x-1/2 -translate-y-1/2 opacity-[0.24] mix-blend-screen"
       />

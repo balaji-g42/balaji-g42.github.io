@@ -12,7 +12,7 @@ export const person = {
     github: "https://github.com/balaji-g42",
     instagram: "https://www.instagram.com/i_am_balaji_angel/",
   },
-  photo: "/balaji.png",
+  photo: "/balaji.webp",
 };
 
 export const profiles: Record<
@@ -290,15 +290,15 @@ export const contributions: Project[] = [
 ];
 
 export const trips: { file: string; alt: string }[] = [
-  { file: "trip-01.jpg", alt: "Sun low over a highway at dawn with wispy clouds" },
-  { file: "trip-02.jpg", alt: "Waterfall over granite boulders under a clear blue sky" },
-  { file: "trip-03.jpg", alt: "Rocky hills above a green forest valley in morning light" },
-  { file: "trip-04.jpg", alt: "Wide waterfall dropping into a pool in a forested gorge" },
-  { file: "trip-05.jpg", alt: "Misty mountain ridge above a grassy hillside" },
-  { file: "trip-07.jpg", alt: "Cumulus clouds over a forested mountain ridge" },
-  { file: "trip-08.jpg", alt: "Tree canopy view over a vast forested plain" },
-  { file: "trip-09.jpg", alt: "Boulders and tall grass on a hilltop under a blue sky" },
-  { file: "trip-10.jpg", alt: "River winding through green forest toward a distant hill" },
+  { file: "trip-01.webp", alt: "Sun low over a highway at dawn with wispy clouds" },
+  { file: "trip-02.webp", alt: "Waterfall over granite boulders under a clear blue sky" },
+  { file: "trip-03.webp", alt: "Rocky hills above a green forest valley in morning light" },
+  { file: "trip-04.webp", alt: "Wide waterfall dropping into a pool in a forested gorge" },
+  { file: "trip-05.webp", alt: "Misty mountain ridge above a grassy hillside" },
+  { file: "trip-07.webp", alt: "Cumulus clouds over a forested mountain ridge" },
+  { file: "trip-08.webp", alt: "Tree canopy view over a vast forested plain" },
+  { file: "trip-09.webp", alt: "Boulders and tall grass on a hilltop under a blue sky" },
+  { file: "trip-10.webp", alt: "River winding through green forest toward a distant hill" },
 ];
 
 export const skills:{ group: string; items: string[] }[] = [
