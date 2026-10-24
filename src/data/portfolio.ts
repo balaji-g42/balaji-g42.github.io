@@ -199,8 +199,8 @@ export const projects: Project[] = [
   {
     title: "Home Automation",
     kind: "Smart home",
-    pitch: "A self-hosted Home Assistant running my home, reachable securely from anywhere behind a reverse proxy.",
-    stack: ["Home Assistant", "Docker", "Reverse proxy"],
+    pitch: "A self-hosted Home Assistant running my home: lights and air quality by room, energy and network monitoring, and power control for my servers, reachable securely from anywhere behind a reverse proxy.",
+    stack: ["Home Assistant", "Docker", "Energy dashboard", "Reverse proxy"],
     hue: 195,
     featured: true,
   },
