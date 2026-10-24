@@ -12,7 +12,7 @@ export const person = {
     github: "https://github.com/balaji-g42",
     instagram: "https://www.instagram.com/i_am_balaji_angel/",
   },
-  photo: "/balaji.webp",
+  photo: "/balaji-full.webp",
 };
 
 export const profiles: Record<
