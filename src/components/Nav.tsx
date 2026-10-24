@@ -52,6 +52,7 @@ export default function Nav({ profile, onSelect, onSwitch }: { profile: ProfileI
             aria-label={`Profile: ${profiles[profile].label}`}
             className="flex items-center gap-2"
           >
+            <span className="hidden text-sm text-white sm:inline">{profiles[profile].label}</span>
             <Avatar id={profile} className="h-8 w-8" />
             <span className={`text-xs text-white transition-transform ${menu ? "rotate-180" : ""}`}>▾</span>
           </button>
