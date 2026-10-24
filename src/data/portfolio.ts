@@ -79,6 +79,18 @@ export const seasons: Season[] = [
         text: "Took regression for three healthcare products from days to under 10 hours, with 5+ releases a month and 15,000+ users depending on it.",
         tags: ["500+ scenarios", "CI/CD", "Docker"],
       },
+      {
+        title: "Healthcare Regression Suite",
+        period: "2025 – present · ongoing",
+        text: "Building and extending the regression suite for the healthcare portals: Python, Selenium and Behave, run in Jenkins and reported through Allure.",
+        tags: ["Ongoing", "Python", "Selenium", "Behave", "Jenkins"],
+      },
+      {
+        title: "Agentic QA Framework",
+        period: "2025 – present · ongoing",
+        text: "Work in progress: autonomous UI agents that explore an app, generate tests and heal broken locators.",
+        tags: ["Ongoing", "AI agents", "Qdrant", "Selenium"],
+      },
     ],
   },
   {
@@ -151,9 +163,9 @@ export const projects: Project[] = [
   {
     title: "Agentic QA Framework",
     kind: "Automation",
-    pitch: "An idea in the works: autonomous UI agents that explore an app, generate tests and heal broken locators.",
+    pitch: "Work in progress: autonomous UI agents that explore an app, generate tests and heal broken locators.",
     stack: ["Python", "Behave", "Selenium", "Qdrant", "Jenkins"],
-    status: "Coming soon",
+    status: "In progress",
     hue: 355,
     featured: true,
   },
