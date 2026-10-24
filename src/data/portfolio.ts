@@ -197,6 +197,14 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    title: "Home Automation",
+    kind: "Smart home",
+    pitch: "A self-hosted Home Assistant running my home, reachable securely from anywhere behind a reverse proxy.",
+    stack: ["Home Assistant", "Docker", "Reverse proxy"],
+    hue: 195,
+    featured: true,
+  },
+  {
     title: "Project Agent Memory",
     kind: "Developer tool",
     pitch: "An MCP server that gives coding agents persistent project memory. 8 tools, Qdrant or PostgreSQL/pgvector, local embeddings.",
@@ -298,5 +306,5 @@ export const skills:{ group: string; items: string[] }[] = [
   { group: "AI & agents", items: ["Qdrant / RAG", "MCP tooling", "Prompt patterns"] },
   { group: "Performance & CI", items: ["JMeter", "Taurus", "Jenkins pipelines", "GitHub Actions", "Docker", "GitOps"] },
   { group: "Build", items: ["Flutter / Dart", "TypeScript", "React", "FastAPI", "Node.js", "Firebase"] },
-  { group: "Homelab & infra", items: ["Docker & Compose", "Proxmox / LXC", "Linux servers", "Reverse proxies", "Cloudflare Tunnel", "Backups & monitoring", "PostgreSQL", "n8n"] },
+  { group: "Homelab & infra", items: ["Docker & Compose", "Home Assistant", "Proxmox / LXC", "Linux servers", "Reverse proxies", "Cloudflare Tunnel", "Backups & monitoring", "PostgreSQL", "n8n"] },
 ];
