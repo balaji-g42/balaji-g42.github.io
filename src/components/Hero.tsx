@@ -14,7 +14,7 @@ export default function Hero({ profile }: { profile: ProfileId }) {
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.9 }}
-        className="absolute bottom-0 right-0 h-[44vh] max-h-[900px] w-auto max-w-[90vw] object-contain object-bottom sm:h-[88vh]"
+        className="absolute inset-x-0 bottom-0 mx-auto h-[44vh] sm:inset-x-auto sm:right-0 sm:mx-0 max-h-[900px] w-auto max-w-[90vw] object-contain object-bottom sm:h-[88vh]"
       />
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-24 sm:px-8 sm:pt-24">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-xl">
