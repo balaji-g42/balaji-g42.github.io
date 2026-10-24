@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState, type ReactElement } from "react";
 import Intro from "./components/Intro";
+import Backdrop from "./components/Backdrop";
+import Quote from "./components/Quote";
 import Lenis from "lenis";
 import { profiles, type ProfileId } from "./data/portfolio";
 import ProfilePicker from "./components/ProfilePicker";
@@ -70,12 +72,16 @@ export default function App() {
   return (
     <>
       {intro && <Intro onDone={endIntro} />}
+      <Backdrop />
       <Nav profile={profile} onSelect={choose} onSwitch={() => setProfile(null)} />
       <main>
         <Hero profile={profile} />
         <About />
+        <Quote text="Sometimes you gotta run before you can walk." />
         {profiles[profile].order.map((id) => sections[id])}
+        <Quote text="Part of the journey is the end." />
         <OffDuty />
+        <Quote text="I am Iron Man." />
         <Contact />
       </main>
       <Footer />

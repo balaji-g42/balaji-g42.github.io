@@ -55,6 +55,22 @@ body {
   outline-offset: 3px;
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow,
+.spin-slow-rev {
+  transform-box: view-box;
+  transform-origin: center;
+  animation: spin 90s linear infinite;
+}
+.spin-slow-rev {
+  animation-direction: reverse;
+  animation-duration: 140s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
