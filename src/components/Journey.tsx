@@ -6,7 +6,7 @@ import SectionTitle from "./SectionTitle";
 
 const FIRST = 2009;
 const LAST = 2026;
-const pct = (year: number) => ((year - FIRST) / (LAST - FIRST)) * 100;
+const pct = (year: number) => ((LAST - year) / (LAST - FIRST)) * 100;
 
 function Episodes({ s }: { s: Season }) {
   return (
@@ -43,7 +43,7 @@ export default function Journey() {
     if (e.pointerType !== "mouse" && e.buttons === 0) return;
     const box = rail.current?.getBoundingClientRect();
     if (!box) return;
-    const year = FIRST + ((e.clientX - box.left) / box.width) * (LAST - FIRST);
+    const year = LAST - ((e.clientX - box.left) / box.width) * (LAST - FIRST);
     let best = 0;
     seasons.forEach((x, i) => {
       if (Math.abs(x.year - year) < Math.abs(seasons[best].year - year)) best = i;
