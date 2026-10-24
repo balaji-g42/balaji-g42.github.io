@@ -3,7 +3,12 @@ const ticks = Array.from({ length: 12 }, (_, i) => i * 30);
 export default function Backdrop() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden>
-      <img src="/stark/logo.jpg" alt="" className="absolute inset-0 h-full w-full object-contain opacity-[0.22] mix-blend-screen" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_45%,rgba(229,34,47,0.16),transparent_65%)]" />
+      <img
+        src="/stark/logo.jpg"
+        alt=""
+        className="absolute left-1/2 top-1/2 w-[94vw] max-w-[1400px] -translate-x-1/2 -translate-y-1/2 opacity-[0.24] mix-blend-screen"
+      />
       <div
         className="absolute inset-0 opacity-[0.07]"
         style={{

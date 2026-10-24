@@ -32,7 +32,7 @@ export default function Journey() {
         ref={rail}
         onPointerMove={scrub}
         onPointerDown={scrub}
-        className="relative mb-12 h-24 cursor-ew-resize select-none touch-pan-y"
+        className="relative mx-8 mb-12 h-24 cursor-ew-resize select-none touch-pan-y sm:mx-0"
       >
         <div className="absolute inset-x-0 top-10 h-px bg-line" />
         <motion.div
@@ -55,8 +55,8 @@ export default function Journey() {
             className="absolute top-6 -translate-x-1/2 text-center"
             style={{ left: `${pct(x.year)}%` }}
           >
-            <span className={`block font-display text-3xl leading-none transition-colors ${i === open ? "text-white" : "text-muted"}`}>{x.year}</span>
-            <span className={`mt-5 block text-[10px] font-semibold uppercase tracking-[0.2em] transition-colors ${i === open ? "text-accent" : "text-muted"}`}>
+            <span className={`block font-display text-xl leading-none sm:text-3xl transition-colors ${i === open ? "text-white" : "text-muted"}`}>{x.year}</span>
+            <span className={`mt-5 hidden whitespace-nowrap text-[10px] sm:block font-semibold uppercase tracking-[0.2em] transition-colors ${i === open ? "text-accent" : "text-muted"}`}>
               {x.name}
             </span>
           </button>
