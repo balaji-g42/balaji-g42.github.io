@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { person, profiles, type ProfileId } from "../data/portfolio";
+import Avatar from "./Avatar";
 
 const links = [
   ["about", "About"],
@@ -9,8 +10,11 @@ const links = [
   ["contact", "Contact"],
 ];
 
-export default function Nav({ profile, onSwitch }: { profile: ProfileId; onSwitch: () => void }) {
+const ids = Object.keys(profiles) as ProfileId[];
+
+export default function Nav({ profile, onSelect, onSwitch }: { profile: ProfileId; onSelect: (p: ProfileId) => void; onSwitch: () => void }) {
   const [solid, setSolid] = useState(false);
+  const [menu, setMenu] = useState(false);
   useEffect(() => {
     const on = () => setSolid(window.scrollY > 40);
     on();
@@ -33,9 +37,42 @@ export default function Nav({ profile, onSwitch }: { profile: ProfileId; onSwitc
             </li>
           ))}
         </ul>
-        <button onClick={onSwitch} className="ml-auto rounded border border-line px-3 py-1 text-xs text-muted transition-colors hover:border-white hover:text-white">
-          {profiles[profile].label} · switch
-        </button>
+        <div
+          className="relative ml-auto"
+          onMouseLeave={() => setMenu(false)}
+          onBlur={(e) => {
+            if (!e.currentTarget.contains(e.relatedTarget)) setMenu(false);
+          }}
+        >
+          <button
+            onClick={() => setMenu(true)}
+            onMouseEnter={() => setMenu(true)}
+            aria-haspopup="menu"
+            aria-expanded={menu}
+            aria-label={`Profile: ${profiles[profile].label}`}
+            className="flex items-center gap-2"
+          >
+            <Avatar id={profile} className="h-8 w-8" />
+            <span className={`text-xs text-white transition-transform ${menu ? "rotate-180" : ""}`}>▾</span>
+          </button>
+          {menu && (
+            <ul role="menu" className="absolute right-0 top-full w-52 rounded-md border border-line bg-black/95 py-2 shadow-xl">
+              {ids.filter((id) => id !== profile).map((id) => (
+                <li key={id} role="none">
+                  <button role="menuitem" onClick={() => { setMenu(false); onSelect(id); }} className="flex w-full items-center gap-3 px-3 py-2 text-sm text-muted hover:text-white">
+                    <Avatar id={id} className="h-8 w-8" />
+                    {profiles[id].label}
+                  </button>
+                </li>
+              ))}
+              <li role="none" className="mt-1 border-t border-line pt-1">
+                <button role="menuitem" onClick={onSwitch} className="w-full px-3 py-2 text-left text-sm text-muted hover:text-white">
+                  Switch profiles
+                </button>
+              </li>
+            </ul>
+          )}
+        </div>
       </nav>
     </header>
   );

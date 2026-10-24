@@ -70,7 +70,7 @@ export default function App() {
   return (
     <>
       {intro && <Intro onDone={endIntro} />}
-      <Nav profile={profile} onSwitch={() => setProfile(null)} />
+      <Nav profile={profile} onSelect={choose} onSwitch={() => setProfile(null)} />
       <main>
         <Hero profile={profile} />
         <About />
