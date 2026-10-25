@@ -331,6 +331,4 @@ export const topMoments: Moment[] = [
   { laurel: "Regression cut", title: "Days to <10h", org: "HBox.ai", detail: "Took the 500+ scenario regression for three healthcare products from days to under 10 hours." },
   { laurel: "Automation scale", title: "500+ Scenarios", org: "HBox.ai", detail: "Automated across multiple healthcare products and 10+ dashboards with Python, Selenium and Behave." },
   { laurel: "Patient reach", title: "15,000+ Users", org: "Healthcare platforms", detail: "Quality ownership for healthcare systems serving more than 15,000 users." },
-  { laurel: "Shipped in 40 days", title: "10,000+ Installs", org: "Indian Neighbour", detail: "Delivered the Flutter app solo in about 40 days. Live on Google Play and the App Store." },
-  { laurel: "Open source", title: "PR #85 Merged", org: "Mission Control v2.0.2", detail: "Session Key Prefix UI feature merged into a public release." },
 ];
