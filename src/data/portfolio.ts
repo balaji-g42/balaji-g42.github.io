@@ -307,6 +307,7 @@ export const skills:{ group: string; items: string[] }[] = [
   { group: "AI & agents", items: ["Qdrant / RAG", "MCP tooling", "Prompt patterns"] },
   { group: "Performance & CI", items: ["JMeter", "Taurus", "Jenkins pipelines", "GitHub Actions", "Docker", "GitOps"] },
   { group: "Build", items: ["Flutter / Dart", "TypeScript", "React", "FastAPI", "Node.js", "Firebase"] },
+  { group: "Healthcare domain", items: ["HIPAA-aware applications", "Healthcare portals", "Patient engagement platforms", "Healthcare ETL systems"] },
   { group: "Homelab & infra", items: ["Docker & Compose", "Home Assistant", "Proxmox / LXC", "Linux servers", "Reverse proxies", "Cloudflare Tunnel", "Backups & monitoring", "PostgreSQL", "n8n"] },
 ];
 

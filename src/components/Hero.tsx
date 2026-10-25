@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { person, profiles, type ProfileId } from "../data/portfolio";
+import Orbit from "./Orbit";
 
 export default function Hero({ profile }: { profile: ProfileId }) {
   const p = profiles[profile];
@@ -8,14 +9,15 @@ export default function Hero({ profile }: { profile: ProfileId }) {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_45%,rgba(229,34,47,0.55),transparent_60%)]" />
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 z-[5] h-40 bg-gradient-to-t from-ink to-transparent" />
-      <motion.img
-        src={person.photo}
-        alt="Portrait of Balaji G"
+      <motion.div
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.9 }}
-        className="absolute inset-x-0 bottom-0 mx-auto h-[44vh] sm:inset-x-auto sm:right-0 sm:mx-0 max-h-[900px] w-auto max-w-[90vw] object-contain object-bottom sm:h-[88vh]"
-      />
+        className="absolute inset-x-0 bottom-0 mx-auto aspect-[1086/1448] w-[calc(44vh*0.75)] max-w-[90vw] sm:inset-x-auto sm:right-[5vw] sm:mx-0 sm:w-[calc(88vh*0.75)]"
+      >
+        <img src={person.photo} alt="Portrait of Balaji G" className="relative z-10 h-full w-full object-contain object-bottom" />
+        <Orbit />
+      </motion.div>
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-24 sm:px-8 sm:pt-24">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-xl">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.4em] text-accent">A personal series</p>
