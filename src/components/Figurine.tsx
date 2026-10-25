@@ -1,55 +1,80 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function Figurine() {
   const video = useRef<HTMLVideoElement>(null);
+  const last = useRef(0);
   const [sound, setSound] = useState(false);
+  const [used, setUsed] = useState(false);
   const [hi, setHi] = useState(false);
 
-  const toggleSound = () => {
+  useEffect(() => {
     const v = video.current;
     if (!v) return;
-    const next = !sound;
-    v.muted = !next;
-    if (next) {
-      v.currentTime = 0;
-      void v.play();
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) void v.play().catch(() => {});
+        else v.pause();
+      },
+      { threshold: 0.5 },
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
+
+  const speak = () => {
+    const v = video.current;
+    if (!v || used) return;
+    setUsed(true);
+    v.muted = false;
+    v.currentTime = 0;
+    last.current = 0;
+    v.play().then(
+      () => setSound(true),
+      () => {
+        v.muted = true;
+        setUsed(false);
+        void v.play().catch(() => {});
+      },
+    );
+  };
+
+  const onTime = (v: HTMLVideoElement) => {
+    const t = v.currentTime;
+    setHi(t > 0.5 && t < 5);
+    if (t < last.current - 1 && !v.muted) {
+      v.muted = true;
+      setSound(false);
     }
-    setSound(next);
+    last.current = t;
   };
 
   return (
-    <div className="relative flex items-center justify-center">
+    <div className="relative flex items-center justify-center pt-14">
       <div aria-hidden className="absolute inset-x-8 bottom-0 top-8 rounded-full bg-[radial-gradient(closest-side,rgba(229,34,47,0.35),rgba(224,176,74,0.12)_60%,transparent)] blur-2xl" />
-      <div className="relative">
+      <div className="relative" onMouseEnter={speak}>
         <div className="relative aspect-[9/16] h-[26rem] overflow-hidden rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] ring-1 ring-[#e0b04a]/50 sm:h-[30rem]">
           <img src="/mini-me.webp" alt="3D figurine of Balaji" width={800} height={1200} className="absolute inset-0 h-full w-full object-cover" />
           <video
             ref={video}
             src="/mini-wave.mp4"
             poster="/mini-me.webp"
-            autoPlay
             loop
             muted
             playsInline
             preload="auto"
             aria-hidden
-            onTimeUpdate={(e) => {
-              const t = e.currentTarget.currentTime;
-              setHi(t > 0.5 && t < 5);
-            }}
+            onTimeUpdate={(e) => onTime(e.currentTarget)}
             className="absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
           />
-          <span aria-hidden className="absolute bottom-[8%] right-[10%] h-[4%] w-[9%] rounded-full bg-[#3a3a3f] blur-[3px]" />
           <button
             type="button"
-            onClick={toggleSound}
-            aria-pressed={sound}
-            aria-label={sound ? "Mute greeting" : "Play greeting with sound"}
-            className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full bg-black/65 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-white backdrop-blur transition hover:bg-black/85"
+            onClick={speak}
+            disabled={used}
+            aria-label={used ? "Greeting sound already played" : "Play greeting with sound"}
+            className="absolute bottom-[5%] right-[5%] grid h-10 w-10 place-items-center rounded-full bg-black/70 text-base text-white backdrop-blur transition enabled:hover:bg-black/90"
           >
             <span aria-hidden>{sound ? "🔊" : "🔇"}</span>
-            {sound ? "Sound on" : "Tap for sound"}
           </button>
         </div>
         <AnimatePresence>
@@ -57,13 +82,14 @@ export default function Figurine() {
             <motion.div
               key="hi"
               aria-hidden
-              initial={{ opacity: 0, scale: 0.6, y: 10 }}
+              initial={{ opacity: 0, scale: 0.7, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ type: "spring", stiffness: 300, damping: 18 }}
-              className="absolute -top-3 right-2 z-10 origin-bottom-left rounded-2xl rounded-bl-sm bg-white px-4 py-2 font-display text-3xl leading-none tracking-wide text-ink shadow-[0_8px_30px_rgba(0,0,0,0.5)] sm:-right-6"
+              exit={{ opacity: 0, scale: 0.9, y: 6 }}
+              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              className="absolute bottom-full left-1/2 z-10 mb-4 -translate-x-1/2 whitespace-nowrap rounded-[1.4rem] border border-white/30 bg-white/15 px-5 py-2.5 text-sm font-semibold tracking-wide text-white shadow-[0_10px_40px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.45)] backdrop-blur-xl backdrop-saturate-150 sm:text-base"
             >
-              Hi! I'm Balaji 👋
+              Hi! How are you today?
+              <span aria-hidden className="absolute left-1/2 top-full -mt-1.5 h-3 w-3 -translate-x-1/2 rotate-45 border-b border-r border-white/30 bg-white/15 backdrop-blur-xl" />
             </motion.div>
           )}
         </AnimatePresence>
