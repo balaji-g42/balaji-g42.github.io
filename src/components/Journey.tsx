@@ -83,7 +83,7 @@ export default function Journey() {
                   ))}
                 </div>
                 <div className="mt-4 h-0.5 overflow-hidden rounded bg-white/10">
-                  <div className="jp-bar h-full bg-accent" style={{ width: `${s.period.includes("present") ? ((i + 1) / s.episodes.length) * 100 : 100}%` }} />
+                  <div className="jp-bar h-full bg-accent" style={{ width: `${s.period.includes("present") ? ((i + 1) / (s.episodes.length + 1)) * 100 : 100}%` }} />
                 </div>
               </motion.article>
             ))}
