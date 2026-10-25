@@ -56,6 +56,10 @@ export default function About() {
           </div>
         </Reveal>
         <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          <div className="relative col-span-2 flex justify-center">
+            <div aria-hidden className="absolute inset-x-8 bottom-0 top-8 rounded-full bg-[radial-gradient(closest-side,rgba(229,34,47,0.35),rgba(224,176,74,0.12)_60%,transparent)] blur-2xl" />
+            <img src="/mini-me.webp" alt="3D figurine of Balaji" width={800} height={1200} loading="lazy" className="relative h-72 w-auto rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] ring-1 ring-[#e0b04a]/50 sm:h-80" />
+          </div>
           {about.stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.08}>
               <div className="group relative h-full overflow-hidden rounded-xl border border-line bg-panel p-4 transition-all duration-300 hover:-translate-y-1 hover:border-accent sm:p-5">
