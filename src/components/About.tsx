@@ -3,7 +3,6 @@ import { useInView } from "framer-motion";
 import { about } from "../data/portfolio";
 import Reveal from "./Reveal";
 import SectionTitle from "./SectionTitle";
-import MiniMe from "./MiniMe";
 
 function CountUp({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -68,9 +67,6 @@ export default function About() {
               </div>
             </Reveal>
           ))}
-          <div className="col-span-2 flex justify-center pt-2">
-            <MiniMe />
-          </div>
         </div>
       </div>
     </section>
