@@ -57,7 +57,11 @@ export default function About() {
         </Reveal>
         <div className="relative flex items-center justify-center">
           <div aria-hidden className="absolute inset-x-8 bottom-0 top-8 rounded-full bg-[radial-gradient(closest-side,rgba(229,34,47,0.35),rgba(224,176,74,0.12)_60%,transparent)] blur-2xl" />
-          <img src="/mini-me.webp" alt="3D figurine of Balaji" width={800} height={1200} loading="lazy" className="relative h-72 w-auto rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] ring-1 ring-[#e0b04a]/50 sm:h-80" />
+          <div className="relative aspect-[9/16] h-[26rem] overflow-hidden rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] ring-1 ring-[#e0b04a]/50 sm:h-[30rem]">
+            <img src="/mini-me.webp" alt="3D figurine of Balaji" width={800} height={1200} className="absolute inset-0 h-full w-full object-cover" />
+            <video src="/mini-wave.mp4" poster="/mini-me.webp" autoPlay loop muted playsInline preload="auto" aria-hidden className="absolute inset-0 h-full w-full object-cover motion-reduce:hidden" />
+            <span aria-hidden className="absolute bottom-[8%] right-[10%] h-[4%] w-[9%] rounded-full bg-[#3a3a3f] blur-[3px]" />
+          </div>
         </div>
       </div>
       <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
