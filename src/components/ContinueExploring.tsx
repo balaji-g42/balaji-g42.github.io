@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import ExploreArt from "./ExploreArt";
 import { about, achievements, projects, seasons, skills, type ProfileId, profiles } from "../data/portfolio";
 
 const cards: Record<string, { title: string; teaser: string; hue: number; glyph: string; mins: number }> = {
@@ -6,6 +7,7 @@ const cards: Record<string, { title: string; teaser: string; hue: number; glyph:
   journey: { title: "Journey", teaser: `${seasons.length} seasons from Omnicuris to HBox.ai`, hue: 28, glyph: "S3", mins: 3 },
   projects: { title: "Originals", teaser: `${projects.length} projects, apps and automation`, hue: 275, glyph: "10", mins: 4 },
   skills: { title: "Skills", teaser: `${skills.length} skill groups`, hue: 205, glyph: "{ }", mins: 2 },
+  resume: { title: "The Full Story", teaser: "The resume, readable and downloadable", hue: 165, glyph: "CV", mins: 2 },
   achievements: { title: "Top Moments", teaser: `${achievements.length} certifications and results`, hue: 42, glyph: "★", mins: 2 },
 };
 
@@ -78,6 +80,7 @@ export default function ContinueExploring({ profile }: { profile: ProfileId }) {
                   <span aria-hidden className="absolute -right-1 -top-3 select-none font-display text-7xl leading-none text-white/10">
                     {c.glyph}
                   </span>
+                  <ExploreArt id={id} />
                   <span className="absolute left-3 top-3 text-[9px] font-semibold uppercase tracking-[0.25em] text-white/70">S1:E{i + 1}</span>
                   <span className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full border border-white/60 bg-black/50 pl-0.5 text-xs text-white backdrop-blur transition duration-300 group-hover:opacity-0">
                     ▶
