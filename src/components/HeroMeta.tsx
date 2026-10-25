@@ -50,7 +50,7 @@ export default function HeroMeta() {
       </div>
       <div className="mt-3 flex items-center gap-3">
         <span aria-hidden className="text-accent">▶</span>
-        <div className="relative h-1 flex-1 rounded-full bg-white/20">
+        <div className="relative h-1 min-w-0 flex-1 rounded-full bg-white/20">
           <div className="absolute inset-y-0 left-0 rounded-full bg-accent" style={{ width: `${t * 100}%` }} />
           <div
             className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent shadow-[0_0_10px_2px_rgba(229,34,47,0.8)]"
@@ -66,7 +66,7 @@ export default function HeroMeta() {
             </span>
           ))}
         </div>
-        <span className="w-24 text-right font-mono text-xs tabular-nums text-white/80">
+        <span className="w-[15ch] shrink-0 whitespace-nowrap text-right font-mono text-xs tabular-nums text-white/80">
           {span(Math.round(totalMonths * t))} / {span(totalMonths)}
         </span>
       </div>
