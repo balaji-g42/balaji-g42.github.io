@@ -11,6 +11,8 @@ import About from "./components/About";
 import Journey from "./components/Journey";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
+import Achievements from "./components/Achievements";
+import Resume from "./components/Resume";
 import OffDuty from "./components/OffDuty";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
@@ -67,6 +69,8 @@ export default function App() {
     journey: <Journey key="journey" />,
     projects: <Projects key="projects" profile={profile} />,
     skills: <Skills key="skills" />,
+    achievements: <Achievements key="achievements" />,
+    resume: <Resume key="resume" />,
   };
 
   return (

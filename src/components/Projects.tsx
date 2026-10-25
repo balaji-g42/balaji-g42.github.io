@@ -1,13 +1,21 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { projects, contributions, type Project, type ProfileId } from "../data/portfolio";
 import Reveal from "./Reveal";
 import SectionTitle from "./SectionTitle";
+import ProjectOverlay, { linkText } from "./ProjectOverlay";
 
-function Card({ p }: { p: Project }) {
-  const body = (
-    <motion.article
+type Open = { p: Project; id: string };
+
+function Card({ p, id, onOpen }: { p: Project; id: string; onOpen: (o: Open) => void }) {
+  return (
+    <motion.button
+      type="button"
+      layoutId={id}
+      onClick={() => onOpen({ p, id })}
       whileHover={{ scale: 1.04, y: -4 }}
-      className="relative flex h-72 w-60 flex-col justify-end overflow-hidden rounded-xl border border-line p-4"
+      aria-label={`${p.title} details`}
+      className="relative flex h-72 w-60 shrink-0 cursor-pointer flex-col justify-end overflow-hidden rounded-xl border border-line p-4 text-left"
       style={{ background: `linear-gradient(160deg, hsl(${p.hue} 70% 32%), hsl(${p.hue} 60% 9%) 70%)` }}
     >
       <span className="absolute left-4 top-4 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/70">{p.kind}</span>
@@ -21,21 +29,15 @@ function Card({ p }: { p: Project }) {
           </span>
         ))}
       </div>
-      {p.url && <span className="mt-3 text-xs font-semibold">{p.linkLabel ?? (p.url.includes("/pull/") ? "View pull request ↗" : "View on GitHub ↗")}</span>}
-    </motion.article>
-  );
-  return p.url ? (
-    <a href={p.url} target="_blank" rel="noreferrer" aria-label={`${p.title} on GitHub`} className="shrink-0">
-      {body}
-    </a>
-  ) : (
-    body
+      {p.url && <span className="mt-3 text-xs font-semibold">{linkText(p)}</span>}
+    </motion.button>
   );
 }
 
 export default function Projects({ profile }: { profile: ProfileId }) {
   const featured = projects.filter((p) => p.featured);
   const rest = projects.filter((p) => !p.featured);
+  const [open, setOpen] = useState<Open | null>(null);
   return (
     <section id="projects" className="mx-auto max-w-7xl px-4 py-20 sm:px-8">
       <SectionTitle kicker="Only on this portfolio" title="Originals" />
@@ -43,7 +45,7 @@ export default function Projects({ profile }: { profile: ProfileId }) {
         <h3 className="mb-3 text-lg font-semibold">{profile === "client" ? "Things I've shipped" : "Featured"}</h3>
         <div className="rail">
           {featured.map((p) => (
-            <Card key={p.title} p={p} />
+            <Card key={p.title} p={p} id={`f-${p.title}`} onOpen={setOpen} />
           ))}
         </div>
       </Reveal>
@@ -51,7 +53,7 @@ export default function Projects({ profile }: { profile: ProfileId }) {
         <h3 className="mb-3 mt-8 text-lg font-semibold">More to watch</h3>
         <div className="rail">
           {rest.map((p) => (
-            <Card key={p.title} p={p} />
+            <Card key={p.title} p={p} id={`r-${p.title}`} onOpen={setOpen} />
           ))}
         </div>
       </Reveal>
@@ -59,10 +61,11 @@ export default function Projects({ profile }: { profile: ProfileId }) {
         <h3 className="mb-3 mt-8 text-lg font-semibold">Open source contributions</h3>
         <div className="rail">
           {contributions.map((p) => (
-            <Card key={p.title} p={p} />
+            <Card key={p.title} p={p} id={`c-${p.title}`} onOpen={setOpen} />
           ))}
         </div>
       </Reveal>
+      <AnimatePresence>{open && <ProjectOverlay p={open.p} layoutId={open.id} onClose={() => setOpen(null)} />}</AnimatePresence>
     </section>
   );
 }
