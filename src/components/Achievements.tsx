@@ -28,6 +28,7 @@ export default function Achievements() {
           <Reveal key={m.title} delay={(i % 3) * 0.08}>
             <article className="group relative flex h-full min-h-[300px] flex-col items-center overflow-hidden rounded-2xl bg-[radial-gradient(120%_80%_at_50%_0%,#2a1f10,#0d0b08_60%,#07070a)] px-5 pb-6 pt-8 text-center ring-1 ring-[#d9b46a]/20 transition duration-500 hover:-translate-y-1 hover:ring-[#d9b46a]/60">
               <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d9b46a]/70 to-transparent" />
+              <span aria-hidden className="top-num pointer-events-none absolute -bottom-8 -right-2 select-none font-display text-[10rem] leading-none opacity-60">{i + 1}</span>
               <div aria-hidden className="absolute -top-24 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-[#d9b46a]/10 blur-3xl transition duration-700 group-hover:bg-[#d9b46a]/25" />
               <div className="relative flex items-center gap-1">
                 <Laurel />

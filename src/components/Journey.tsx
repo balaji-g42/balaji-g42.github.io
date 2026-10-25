@@ -70,7 +70,7 @@ export default function Journey() {
                 className="jp-episode group relative flex w-[78vw] max-w-[22rem] flex-col rounded-xl border border-line bg-panel p-5 sm:w-80"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-display text-4xl leading-none text-white/25 transition-colors group-hover:text-accent">E{code(i + 1)}</span>
+                  <span className="jp-outline font-display text-4xl leading-none transition-colors group-hover:text-accent">E{code(i + 1)}</span>
                   <span className="rounded bg-white/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">{e.period}</span>
                 </div>
                 <h4 className="mt-4 text-lg font-semibold leading-snug">{e.title}</h4>

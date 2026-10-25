@@ -218,3 +218,108 @@ body {
 .group:hover .top-num {
   -webkit-text-stroke-color: #e5222f;
 }
+
+/* continue */
+.cw-rail {
+  scrollbar-width: none;
+}
+.cw-rail::-webkit-scrollbar {
+  display: none;
+}
+.cw-card {
+  transition: transform 0.3s ease;
+}
+.cw-card:hover,
+.cw-card:focus-visible {
+  transform: translateY(-4px) scale(1.03);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cw-card:hover,
+  .cw-card:focus-visible {
+    transform: none;
+  }
+}
+
+/* mini-me */
+.mini-body {
+  animation: mini-bob 2.6s ease-in-out infinite;
+}
+.mini-arm {
+  animation: mini-wave 1.6s ease-in-out infinite;
+}
+.mini-head {
+  animation: mini-tilt 4.2s ease-in-out infinite;
+}
+.mini-eyes {
+  animation: mini-blink 4s infinite;
+}
+.mini-bubble {
+  animation: mini-pop 4.2s ease-in-out infinite;
+}
+@keyframes mini-bob {
+  50% { transform: translateY(-4px); }
+}
+@keyframes mini-wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-150deg); }
+  50% { transform: rotate(-125deg); }
+  75% { transform: rotate(-155deg); }
+}
+@keyframes mini-tilt {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes mini-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+@keyframes mini-pop {
+  0%, 8% { opacity: 0; transform: translateY(6px) scale(0.9); }
+  14%, 80% { opacity: 1; transform: translateY(0) scale(1); }
+  90%, 100% { opacity: 0; transform: translateY(-4px) scale(0.95); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mini-body, .mini-arm, .mini-head, .mini-eyes, .mini-bubble { animation: none; }
+  .mini-bubble { opacity: 1; }
+}
+
+/* nav */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: #e0b04a;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.nav-active::after {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-link::after {
+    transition: none;
+  }
+}
+
+/* cursor */
+button,
+[role="button"],
+a[href],
+summary,
+select {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+.cursor-play,
+.cw-card,
+.jp-poster {
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'><circle cx='22' cy='22' r='20' fill='%23e5222f' stroke='white' stroke-width='2'/><path d='M17 13l15 9-15 9z' fill='white'/></svg>") 22 22,
+    pointer;
+}

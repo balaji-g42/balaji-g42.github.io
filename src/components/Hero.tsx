@@ -57,7 +57,7 @@ export default function Hero({ profile }: { profile: ProfileId }) {
           <p className="mt-2 text-muted">{p.tagline}</p>
           <HeroMeta />
           <div className="mt-6 flex flex-wrap gap-3">
-            <button onClick={() => setReel(true)} className="rounded bg-white px-6 py-3 font-semibold text-black transition-colors hover:bg-white/80">
+            <button onClick={() => setReel(true)} className="cursor-play rounded bg-white px-6 py-3 font-semibold text-black transition-colors hover:bg-white/80">
               ▶ Play Intro
             </button>
             <a href={`#${p.ctaTarget}`} className="rounded bg-black/60 px-6 py-3 font-semibold ring-1 ring-white/25 backdrop-blur transition-colors hover:bg-white/15">

@@ -4,6 +4,7 @@ import { projects, type Project } from "../data/portfolio";
 import Reveal from "./Reveal";
 import SectionTitle from "./SectionTitle";
 import ProjectOverlay from "./ProjectOverlay";
+import ProjectArt from "./ProjectArt";
 
 export default function TopPicks() {
   const rail = useRef<HTMLDivElement>(null);
@@ -43,11 +44,12 @@ export default function TopPicks() {
                 layoutId={`tp-${p.title}`}
                 onClick={() => setOpen({ p, id: `tp-${p.title}` })}
                 aria-label={`Number ${i + 1}: ${p.title}, details`}
-                className="relative z-10 flex h-[85%] w-[140px] flex-col justify-between overflow-hidden rounded-lg border border-white/10 p-3 text-left shadow-[-12px_0_30px_rgba(0,0,0,0.7)] transition-transform duration-500 group-hover:-translate-y-2 sm:w-[170px]"
+                className="cursor-play relative z-10 flex h-[85%] w-[140px] flex-col justify-between overflow-hidden rounded-lg border border-white/10 p-3 text-left shadow-[-12px_0_30px_rgba(0,0,0,0.7)] transition-transform duration-500 group-hover:-translate-y-2 sm:w-[170px]"
                 style={{ background: `linear-gradient(160deg, hsl(${p.hue} 70% 32%), hsl(${p.hue} 60% 9%) 75%)` }}
               >
-                <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-white/70">{p.kind}</span>
-                <span>
+                <ProjectArt p={p} />
+                <span className="relative z-10 text-[9px] font-semibold uppercase tracking-[0.25em] text-white/70">{p.kind}</span>
+                <span className="relative z-10">
                   <span className="block font-display text-2xl leading-[0.95] tracking-wide">{p.title}</span>
                   <span className="mt-1 line-clamp-3 block text-[11px] leading-snug text-white/75">{p.pitch}</span>
                 </span>

@@ -4,6 +4,7 @@ import { projects, contributions, type Project, type ProfileId } from "../data/p
 import Reveal from "./Reveal";
 import SectionTitle from "./SectionTitle";
 import ProjectOverlay from "./ProjectOverlay";
+import ProjectArt from "./ProjectArt";
 
 type Open = { p: Project; id: string };
 
@@ -26,9 +27,10 @@ function Card({ p, id, onOpen }: { p: Project; id: string; onOpen: (o: Open) => 
       className="jp-poster group relative flex h-72 w-60 shrink-0 cursor-pointer flex-col justify-end overflow-hidden rounded-xl border border-line p-4 text-left"
       style={{ background: `linear-gradient(160deg, hsl(${p.hue} 70% 32%), hsl(${p.hue} 60% 9%) 70%)` }}
     >
-      <span className="absolute left-4 top-4 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/70">{p.kind}</span>
+      <ProjectArt p={p} />
+      <span className="absolute left-4 top-4 z-10 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/70">{p.kind}</span>
       {p.status && <span className="absolute right-4 top-4 rounded bg-white px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-black">{p.status}</span>}
-      <h3 className="font-display text-3xl leading-none tracking-wide">{p.title}</h3>
+      <h3 className="relative z-10 font-display text-3xl leading-none tracking-wide">{p.title}</h3>
       <div className="jp-preview">
         <p className="mt-2 text-xs leading-snug text-white/85">{p.pitch}</p>
         <div className="mt-3 flex flex-wrap gap-1">

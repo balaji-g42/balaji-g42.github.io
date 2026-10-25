@@ -2,38 +2,72 @@ import { useEffect, useState } from "react";
 import { person, profiles, type ProfileId } from "../data/portfolio";
 import Avatar from "./Avatar";
 
-const links = [
-  ["about", "About"],
-  ["journey", "Journey"],
-  ["projects", "Originals"],
-  ["skills", "Skills"],
-  ["achievements", "Achievements"],
-  ["contact", "Contact"],
-];
+const labels: Record<string, string> = {
+  top: "Home",
+  about: "About",
+  journey: "Journey",
+  projects: "Originals",
+  skills: "Skills",
+  achievements: "Achievements",
+  contact: "Contact",
+};
+
+const owner: Record<string, string> = { "top-picks": "projects" };
+
+const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const ids = Object.keys(profiles) as ProfileId[];
 
 export default function Nav({ profile, onSelect, onSwitch }: { profile: ProfileId; onSelect: (p: ProfileId) => void; onSwitch: () => void }) {
   const [solid, setSolid] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [active, setActive] = useState("top");
+  const links = ["top", "about", ...profiles[profile].order.filter((id) => id in labels), "contact"];
+
   useEffect(() => {
-    const on = () => setSolid(window.scrollY > 40);
+    const on = () => {
+      setSolid(window.scrollY > 40);
+      const line = window.innerHeight * 0.35;
+      let current = "top";
+      for (const id of links) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= line) current = id;
+      }
+      const tp = document.getElementById("top-picks");
+      if (tp && owner["top-picks"] && tp.getBoundingClientRect().top <= line && tp.getBoundingClientRect().bottom > line) current = owner["top-picks"];
+      setActive(current);
+    };
     on();
     window.addEventListener("scroll", on, { passive: true });
-    return () => window.removeEventListener("scroll", on);
-  }, []);
+    window.addEventListener("resize", on);
+    return () => {
+      window.removeEventListener("scroll", on);
+      window.removeEventListener("resize", on);
+    };
+  }, [profile]);
+
+  const go = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setActive(id);
+    const el = document.getElementById(id);
+    if (id === "top" || !el) window.scrollTo({ top: 0, behavior: reduced() ? "auto" : "smooth" });
+    else el.scrollIntoView({ behavior: reduced() ? "auto" : "smooth" });
+  };
+
+  const item = (id: string) =>
+    `nav-link relative whitespace-nowrap transition-colors ${active === id ? "nav-active text-[#e0b04a]" : "text-muted hover:text-white"}`;
 
   return (
     <header className={`fixed inset-x-0 top-0 z-40 transition-colors ${solid ? "bg-ink/90 backdrop-blur" : "bg-gradient-to-b from-black/70 to-transparent"}`}>
       <nav className="mx-auto flex max-w-7xl items-center gap-6 px-4 py-3 sm:px-8" aria-label="Main">
-        <a href="#top" className="font-display text-3xl tracking-widest text-accent">
+        <a href="#top" onClick={go("top")} className="font-display text-3xl tracking-widest text-accent">
           {person.series}
         </a>
         <ul className="hidden gap-5 text-sm md:flex">
-          {links.map(([id, label]) => (
+          {links.map((id) => (
             <li key={id}>
-              <a href={`#${id}`} className="text-muted transition-colors hover:text-white">
-                {label}
+              <a href={`#${id}`} onClick={go(id)} aria-current={active === id ? "true" : undefined} className={item(id)}>
+                {labels[id]}
               </a>
             </li>
           ))}
@@ -76,6 +110,17 @@ export default function Nav({ profile, onSelect, onSwitch }: { profile: ProfileI
           )}
         </div>
       </nav>
+      <div className="mx-auto max-w-7xl px-4 md:hidden">
+        <ul className="rail flex gap-5 pb-2 text-sm" aria-label="Sections">
+          {links.map((id) => (
+            <li key={id} className="shrink-0">
+              <a href={`#${id}`} onClick={go(id)} aria-current={active === id ? "true" : undefined} className={item(id)}>
+                {labels[id]}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </header>
   );
 }

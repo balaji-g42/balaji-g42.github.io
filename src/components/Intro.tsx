@@ -1,8 +1,28 @@
-import { useEffect } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { person } from "../data/portfolio";
 
+const timeline = [
+  { at: 300, beat: 1 },
+  { at: 2200, beat: 2 },
+  { at: 3600, beat: 3 },
+  { at: 4300, beat: 4 },
+  { at: 5200, beat: 5 },
+  { at: 5900, beat: 6 },
+];
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
 export default function Intro({ onDone }: { onDone: () => void }) {
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [beat, setBeat] = useState(reduced ? 6 : 0);
+
+  useEffect(() => {
+    if (reduced) return;
+    const timers = timeline.map(({ at, beat }) => window.setTimeout(() => setBeat(beat), at));
+    return () => timers.forEach(clearTimeout);
+  }, [reduced]);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Enter" || e.key === "Escape") onDone();
@@ -13,72 +33,117 @@ export default function Intro({ onDone }: { onDone: () => void }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-black"
+      className="fixed inset-0 z-[100] overflow-hidden bg-black"
       exit={{ opacity: 0, scale: 1.04, filter: "blur(12px)" }}
-      transition={{ duration: 0.9, ease: "easeInOut" }}
+      transition={{ duration: 0.9, ease }}
+      role="dialog"
+      aria-label="Opening titles"
     >
+      <motion.div className="absolute inset-x-0 top-0 z-30 h-[7vh] bg-black" initial={{ y: 0 }} animate={{ y: beat >= 6 ? "-100%" : 0 }} transition={{ duration: 1.2, ease }} />
+      <motion.div className="absolute inset-x-0 bottom-0 z-30 h-[7vh] bg-black" initial={{ y: 0 }} animate={{ y: beat >= 6 ? "100%" : 0 }} transition={{ duration: 1.2, ease }} />
+
       <motion.div
-        className="absolute inset-x-0 top-0 h-[7vh] bg-black"
-        initial={{ y: 0 }}
-        animate={{ y: "-100%" }}
-        transition={{ delay: 5.4, duration: 0.8, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute inset-x-0 bottom-0 h-[7vh] bg-black"
-        initial={{ y: 0 }}
-        animate={{ y: "100%" }}
-        transition={{ delay: 5.4, duration: 0.8, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(229,34,47,0.35),transparent_60%)]"
+        aria-hidden
+        className="absolute inset-0"
+        style={{ background: "radial-gradient(60% 50% at 50% 55%, rgba(229,34,47,0.3), transparent 70%)" }}
         initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 0.6, 0.35, 0.7, 0.5] }}
-        transition={{ delay: 0.3, duration: 3, ease: "easeInOut" }}
+        animate={{ opacity: beat >= 2 ? [0, 0.9, 0.5, 1] : 0 }}
+        transition={{ duration: 1.4 }}
       />
-      <motion.p
-        className="absolute top-1/2 -translate-y-1/2 text-xs font-semibold uppercase text-white/80 sm:text-base"
-        initial={{ opacity: 0, letterSpacing: "0.2em" }}
-        animate={{ opacity: [0, 1, 1, 0], letterSpacing: "0.45em" }}
-        transition={{ delay: 0.4, duration: 2.4, times: [0, 0.3, 0.8, 1], ease: "easeOut" }}
-      >
-        Based on real life events
-      </motion.p>
+
+      <AnimatePresence>
+        {beat === 1 && (
+          <motion.div
+            key="studio"
+            className="absolute inset-0 flex items-center justify-center px-4 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, filter: "blur(6px)" }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.p
+              className="text-xs font-semibold uppercase text-white/80 sm:text-sm"
+              initial={{ letterSpacing: "0.2em", opacity: 0 }}
+              animate={{ letterSpacing: "0.32em", opacity: 1 }}
+              transition={{ duration: 1.6, ease }}
+            >
+              Based on real life events
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <motion.div
-        className="relative flex flex-col items-center"
-        initial={{ y: 0, scale: 1 }}
-        animate={{ y: "-14vh", scale: 0.62 }}
-        transition={{ delay: 4.2, duration: 1.1, ease: "easeInOut" }}
+        className="absolute inset-x-0 bottom-0 z-0 mx-auto flex h-[68vh] max-w-[900px] items-end justify-center"
+        initial={{ opacity: 0, scale: 1.12, filter: "blur(18px) brightness(0.3)" }}
+        animate={beat >= 4 ? { opacity: 1, scale: 1, filter: "blur(0px) brightness(1)" } : {}}
+        transition={{ duration: 1.6, ease }}
       >
-        <motion.h1
-          className="font-display text-[22vw] leading-none text-accent sm:text-[16vw]"
-          initial={{ opacity: 0, scale: 1.3, letterSpacing: "0.5em", filter: "blur(20px)" }}
-          animate={{ opacity: 1, scale: 1, letterSpacing: "0.04em", filter: "blur(0px)" }}
-          transition={{ delay: 2.6, duration: 1.3, ease: "easeOut" }}
-        >
-          {person.series}
-        </motion.h1>
-        <motion.p
-          className="font-display text-3xl uppercase text-white/85 sm:text-5xl"
-          initial={{ opacity: 0, letterSpacing: "1.4em" }}
-          animate={{ opacity: 1, letterSpacing: "0.7em" }}
-          transition={{ delay: 3.6, duration: 1.1, ease: "easeOut" }}
-        >
-          {person.subtitle}
-        </motion.p>
+        <img src={person.photo} alt="" className="h-full w-auto max-w-none object-contain object-bottom [mask-image:linear-gradient(to_bottom,black_55%,transparent_98%)]" />
       </motion.div>
-      <motion.button
-        onClick={onDone}
-        aria-label="Play"
-        className="absolute bottom-[24%] grid h-20 w-20 place-items-center rounded-full border border-white/30 bg-accent/90 text-3xl text-white shadow-[0_0_40px_8px_rgba(229,34,47,0.55)] transition-transform hover:scale-110"
-        initial={{ opacity: 0, scale: 0.6 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 5.2, duration: 0.6 }}
-      >
-        <span className="pl-1">▶</span>
-      </motion.button>
+      <div aria-hidden className="absolute inset-0 z-[1] bg-[radial-gradient(70%_60%_at_50%_40%,transparent_30%,rgba(0,0,0,0.85)_100%)]" />
+
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
+        <motion.div
+          className="flex flex-col items-center"
+          animate={{ y: beat >= 4 ? "-30vh" : 0 }}
+          transition={{ duration: 1.3, ease }}
+        >
+          <h1
+            aria-label={person.series}
+            className="flex font-display leading-[0.82] tracking-[0.04em] text-[#f4f1ec] drop-shadow-[0_8px_40px_rgba(0,0,0,0.8)]"
+            style={{ fontSize: "clamp(4.6rem, 20vw, 15rem)" }}
+          >
+            {person.series.split("").map((ch, i) => (
+              <motion.span
+                key={i}
+                aria-hidden
+                className="inline-block"
+                initial={{ opacity: 0, y: 24, scale: 1.25, filter: "blur(14px)" }}
+                animate={beat >= 2 ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : {}}
+                transition={{ delay: i * 0.17, duration: 0.55, ease }}
+              >
+                {ch}
+              </motion.span>
+            ))}
+          </h1>
+          <motion.p
+            className="mt-2 text-sm font-bold uppercase text-accent [text-shadow:0_2px_20px_rgba(0,0,0,0.9)] sm:text-lg"
+            initial={{ opacity: 0, letterSpacing: "1.4em" }}
+            animate={beat >= 3 ? { opacity: 1, letterSpacing: "0.7em" } : {}}
+            transition={{ duration: 1.1, ease }}
+          >
+            {person.subtitle}
+          </motion.p>
+        </motion.div>
+      </div>
+
+      <div className="absolute inset-x-0 bottom-[9vh] z-20 flex flex-col items-center gap-5 px-4 text-center sm:gap-6">
+        <motion.p
+          className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#f4f1ec]/90 sm:text-sm sm:tracking-[0.4em]"
+          initial={{ opacity: 0, y: 14 }}
+          animate={beat >= 5 ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease }}
+        >
+          {person.headline}
+        </motion.p>
+        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={beat >= 6 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.7, ease }}>
+          <button
+            type="button"
+            onClick={onDone}
+            tabIndex={beat >= 6 ? 0 : -1}
+            aria-label="Play"
+            className="cursor-play group flex items-center gap-3 rounded-full bg-[#f4f1ec] px-9 py-4 text-base font-bold tracking-wide text-ink shadow-[0_0_60px_rgba(229,34,47,0.45)] transition hover:bg-white"
+          >
+            <span className="text-lg transition-transform group-hover:scale-125">▶</span> PLAY
+          </button>
+        </motion.div>
+      </div>
+
       <button
+        type="button"
         onClick={onDone}
-        className="absolute bottom-6 right-6 text-[11px] font-semibold uppercase tracking-[0.3em] text-white/60 transition-colors hover:text-white"
+        className="absolute right-4 top-[calc(7vh+12px)] z-40 rounded-full border border-white/20 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70 transition hover:border-white/60 hover:text-white"
       >
         Skip intro
       </button>
