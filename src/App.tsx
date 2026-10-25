@@ -65,7 +65,7 @@ export default function App() {
         <TopPicks />
       </div>
     ),
-    skills: <Skills key="skills" />,
+    skills: <Skills key="skills" profile={profile} />,
     achievements: <Achievements key="achievements" />,
     resume: <Resume key="resume" />,
   };

@@ -16,7 +16,7 @@ export const person = {
     instagram: "https://www.instagram.com/i_am_balaji_angel/",
   },
   photo: "/balaji-full.webp",
-  resume: "/resume.pdf",
+  resume: "/Balaji_G_Resume.pdf",
 };
 
 export const profiles: Record<
@@ -30,7 +30,7 @@ export const profiles: Record<
       "7+ years making healthcare software release-ready. Regression cut from days to under 10 hours.",
     cta: "Get in touch",
     ctaTarget: "contact",
-    order: ["journey", "skills", "projects", "achievements"],
+    order: ["journey", "skills", "projects", "achievements", "resume"],
   },
   client: {
     label: "Client",
@@ -39,7 +39,7 @@ export const profiles: Record<
       "I build and test products end to end: Flutter apps, backends and automation that keeps them honest.",
     cta: "Start a project",
     ctaTarget: "contact",
-    order: ["projects", "journey", "skills", "achievements"],
+    order: ["projects", "journey", "skills", "achievements", "resume"],
   },
   developer: {
     label: "Developer",
@@ -48,7 +48,7 @@ export const profiles: Record<
       "Test automation, MCP tooling and self-hosted infra. Python first, Flutter and TypeScript when it ships.",
     cta: "Browse the code",
     ctaTarget: "projects",
-    order: ["projects", "skills", "journey", "achievements"],
+    order: ["projects", "skills", "journey", "achievements", "resume"],
   },
 };
 
@@ -332,3 +332,50 @@ export const topMoments: Moment[] = [
   { laurel: "Automation scale", title: "500+ Scenarios", org: "HBox.ai", detail: "Automated across multiple healthcare products and 10+ dashboards with Python, Selenium and Behave." },
   { laurel: "Patient reach", title: "15,000+ Users", org: "Healthcare platforms", detail: "Quality ownership for healthcare systems serving more than 15,000 users." },
 ];
+
+export type Spotlight = {
+  kicker: string;
+  title: string;
+  blurb: string;
+  points: { label: string; text: string; href?: string }[];
+  groups: string[];
+};
+
+export const spotlights: Record<ProfileId, Spotlight> = {
+  recruiter: {
+    kicker: "Hiring for QA automation?",
+    title: "What I bring to your team",
+    blurb: "A QA automation engineer who owns regression end to end, from the framework to the Jenkins pipeline to the release call.",
+    points: [
+      { label: "Regression speed", text: "500+ scenario regression cut from days to under 10 hours." },
+      { label: "Stack you can hire", text: "Python, Selenium, Playwright, Behave BDD, Karate, Allure, Jenkins, JMeter." },
+      { label: "Domain depth", text: "7+ years in healthcare: HIPAA-aware portals, patient platforms, ETL systems." },
+      { label: "Ownership", text: "Three products, 10+ dashboards, Agile with Jira, six certifications." },
+    ],
+    groups: ["Test automation", "Performance & CI", "Healthcare domain", "AI & agents", "Build", "Homelab & infra"],
+  },
+  client: {
+    kicker: "Need something built?",
+    title: "Freelance, end to end",
+    blurb: "One person who designs, builds, tests and ships your product, then keeps it running without a subscription pile.",
+    points: [
+      { label: "Mobile apps", text: "Flutter apps shipped solo to Google Play and the App Store, one in about 40 days." },
+      { label: "Backends", text: "FastAPI, Node.js, PostgreSQL and Firebase behind clean APIs." },
+      { label: "Automation", text: "n8n workflows and CI pipelines that remove the manual work." },
+      { label: "Quality built in", text: "Automated tests from day one, so releases do not break." },
+    ],
+    groups: ["Build", "AI & agents", "Test automation", "Performance & CI", "Homelab & infra", "Healthcare domain"],
+  },
+  developer: {
+    kicker: "Open source and collaboration",
+    title: "I send patches upstream",
+    blurb: "Merged pull requests into projects I actually use, plus a homelab where I build, break and fix real infrastructure for fun.",
+    points: [
+      { label: "WUD", text: "Subpath proxy support and a login redirect fix, both merged.", href: "https://github.com/getwud/wud/pull/1077" },
+      { label: "Libretto", text: "Added OpenRouter as an AI provider, merged.", href: "https://github.com/cashew-labs/libretto/pull/238" },
+      { label: "Mission Control", text: "Session key prefix support across agent management and the UI, merged.", href: "https://github.com/crshdn/mission-control/pull/85" },
+      { label: "Homelab hobby", text: "Proxmox and LXC, Docker Compose, Home Assistant, n8n and Cloudflare Tunnel running at home." },
+    ],
+    groups: ["Build", "Homelab & infra", "AI & agents", "Test automation", "Performance & CI", "Healthcare domain"],
+  },
+};
