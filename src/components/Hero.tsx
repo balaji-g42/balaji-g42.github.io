@@ -21,7 +21,7 @@ export default function Hero({ profile }: { profile: ProfileId }) {
         e.currentTarget.style.setProperty("--mx", String((e.clientX - r.left) / r.width - 0.5));
         e.currentTarget.style.setProperty("--my", String((e.clientY - r.top) / r.height - 0.5));
       }}
-      className="relative flex min-h-screen items-start overflow-hidden sm:items-center"
+      className="relative flex min-h-screen flex-col items-stretch overflow-hidden lg:flex-row lg:items-center"
     >
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_45%,rgba(229,34,47,0.55),transparent_60%)]" />
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-transparent" />
@@ -30,7 +30,7 @@ export default function Hero({ profile }: { profile: ProfileId }) {
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.9 }}
-        className="absolute inset-x-0 bottom-0 mx-auto aspect-[1086/1448] w-[calc(44vh*0.75)] max-w-[90vw] sm:inset-x-auto sm:right-[5vw] sm:mx-0 sm:w-[calc(88vh*0.75)]"
+        className="relative z-10 order-2 mx-auto mt-6 aspect-[1086/1448] w-[62vw] max-w-[300px] md:w-[44vw] md:max-w-[380px] lg:absolute lg:inset-x-auto lg:bottom-0 lg:right-[5vw] lg:order-none lg:mx-0 lg:mt-0 lg:w-[calc(88vh*0.75)] lg:max-w-none"
       >
         <div className="pointer-events-none absolute inset-x-[-4%] top-[8%] bottom-[18%] z-[1] rounded-full border border-accent/40 shadow-[0_0_80px_10px_rgba(229,34,47,0.35),inset_0_0_60px_rgba(229,34,47,0.25)]" />
         <img src={person.photo} alt="Portrait of Balaji G" className="relative z-10 h-full w-full object-contain object-bottom" />
@@ -38,7 +38,7 @@ export default function Hero({ profile }: { profile: ProfileId }) {
         {cards.map((c) => (
           <div
             key={c.tag}
-            className={`pointer-events-none absolute z-30 hidden rounded-lg border border-white/15 bg-white/5 px-3 py-2 backdrop-blur-md sm:block ${c.pos}`}
+            className={`pointer-events-none absolute z-30 hidden rounded-lg border border-white/15 bg-white/5 px-3 py-2 backdrop-blur-md lg:block ${c.pos}`}
             style={{ transform: `translate(calc(var(--mx, 0) * ${-c.depth}px), calc(var(--my, 0) * ${-c.depth}px))` }}
           >
             <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-accent">{c.tag}</p>
@@ -46,7 +46,7 @@ export default function Hero({ profile }: { profile: ProfileId }) {
           </div>
         ))}
       </motion.div>
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-24 sm:px-8 sm:pt-24">
+      <div className="relative z-10 order-1 mx-auto w-full max-w-7xl px-4 pt-24 sm:px-8 sm:pt-24">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-xl">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.4em] text-accent">Mission log</p>
           <h1 className="font-display text-7xl leading-[0.9] tracking-wide sm:text-9xl">

@@ -87,7 +87,7 @@ export default function Orbit() {
           ref={(el) => {
             refs.current[i] = el;
           }}
-          className="absolute flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/15 bg-black/55 px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-white/90 shadow-[0_0_18px_rgba(103,232,249,0.12)] backdrop-blur-sm sm:gap-2 sm:px-3 sm:py-1.5 sm:text-[11px]"
+          className={`absolute items-center gap-1.5 whitespace-nowrap ${p.ring === 1 ? "hidden md:flex" : "flex"} rounded-full border border-white/15 bg-black/55 px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-white/90 shadow-[0_0_18px_rgba(103,232,249,0.12)] backdrop-blur-sm sm:gap-2 sm:px-3 sm:py-1.5 sm:text-[11px]`}
         >
           <span
             className={`h-1.5 w-1.5 rounded-full ${

@@ -46,7 +46,21 @@ export default function ProjectOverlay({ p, layoutId, onClose }: { p: Project; l
         </p>
         <h3 className="mt-3 pr-10 font-display text-5xl leading-none tracking-wide sm:text-7xl">{p.title}</h3>
         {p.status && <span className="mt-4 w-fit rounded bg-white px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-black">{p.status}</span>}
-        <p className="mt-6 text-base leading-relaxed text-white/90 sm:text-lg">{p.pitch}</p>
+        <p className="mt-6 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/60">Mission brief</p>
+        <p className="mt-2 text-base leading-relaxed text-white/90 sm:text-lg">{p.pitch}</p>
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {[
+            ["Type", p.kind],
+            ["Year", p.year ?? "Ongoing"],
+            ["Status", p.status ?? "Shipped"],
+            ["Stack", `${p.stack.length} tools`],
+          ].map(([k, v]) => (
+            <div key={k} className="rounded-lg border border-white/15 bg-black/30 px-3 py-2">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.25em] text-white/55">{k}</p>
+              <p className="mt-0.5 truncate text-sm font-semibold">{v}</p>
+            </div>
+          ))}
+        </div>
         <div className="mt-6 flex flex-wrap gap-2">
           {p.stack.map((t) => (
             <span key={t} className="rounded bg-black/40 px-2 py-1 text-xs">

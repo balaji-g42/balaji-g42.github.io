@@ -1,122 +1,107 @@
-import { useRef, useState, type PointerEvent } from "react";
-import { motion } from "framer-motion";
-import { seasons, type Season } from "../data/portfolio";
+import { useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { seasons } from "../data/portfolio";
 import Reveal from "./Reveal";
 import SectionTitle from "./SectionTitle";
 
-const FIRST = 2009;
-const LAST = 2026;
-const pct = (year: number) => ((LAST - year) / (LAST - FIRST)) * 100;
-
-function Episodes({ s }: { s: Season }) {
-  return (
-    <ol className="divide-y divide-line rounded-xl border border-line bg-panel">
-      {s.episodes.map((e, i) => (
-        <li key={e.title} className="flex gap-4 p-4 sm:gap-5 sm:p-5">
-          <span className="font-display text-3xl text-muted sm:text-4xl">{i + 1}</span>
-          <div>
-            <div className="flex flex-wrap items-baseline gap-x-3">
-              <h4 className="text-lg font-semibold">{e.title}</h4>
-              <span className="text-xs text-muted">{e.period}</span>
-            </div>
-            <p className="mt-1 text-muted">{e.text}</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {e.tags.map((t) => (
-                <span key={t} className="rounded bg-white/10 px-2 py-0.5 text-xs">
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
-        </li>
-      ))}
-    </ol>
-  );
-}
+const code = (n: number) => String(n).padStart(2, "0");
 
 export default function Journey() {
   const [open, setOpen] = useState(0);
   const rail = useRef<HTMLDivElement>(null);
   const s = seasons[open];
+  const number = seasons.length - open;
 
-  const scrub = (e: PointerEvent) => {
-    if (e.pointerType !== "mouse" && e.buttons === 0) return;
-    const box = rail.current?.getBoundingClientRect();
-    if (!box) return;
-    const year = LAST - ((e.clientX - box.left) / box.width) * (LAST - FIRST);
-    let best = 0;
-    seasons.forEach((x, i) => {
-      if (Math.abs(x.year - year) < Math.abs(seasons[best].year - year)) best = i;
-    });
-    setOpen(best);
+  const pick = (i: number) => {
+    setOpen(i);
+    rail.current?.scrollTo({ left: 0 });
   };
 
   return (
     <section id="journey" className="mx-auto max-w-7xl px-4 py-20 sm:px-8">
       <SectionTitle kicker="Episodes" title="Journey" />
+      <p className="-mt-4 mb-6 max-w-xl text-sm text-muted">Every stage of the career told as a season. Pick one to see its episodes.</p>
 
-      <ol className="relative ml-3 space-y-10 border-l border-line sm:hidden">
-        {seasons.map((x) => (
-          <li key={x.name} className="relative pl-6">
-            <span className="absolute -left-[7px] top-1.5 h-3 w-3 rounded-full bg-accent shadow-[0_0_14px_3px_rgba(229,34,47,0.6)]" />
-            <Reveal>
-              <div className="font-display text-4xl leading-none">{x.year}</div>
-              <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent">{x.name}</div>
-              <h3 className="mt-3 text-xl font-semibold">{x.role}</h3>
-              <p className="mb-4 text-sm text-muted">
-                {x.place} · {x.period}
-              </p>
-              <Episodes s={x} />
-            </Reveal>
-          </li>
+      <div role="tablist" aria-label="Seasons" className="rail mb-8 gap-2">
+        {seasons.map((x, i) => (
+          <button
+            key={x.name}
+            role="tab"
+            type="button"
+            aria-selected={i === open}
+            onClick={() => pick(i)}
+            className={`relative shrink-0 rounded-full px-4 py-2.5 text-left transition-colors ${i === open ? "text-black" : "text-muted hover:text-white"}`}
+          >
+            {i === open && <motion.span layoutId="jp-season-pill" className="absolute inset-0 rounded-full bg-white" transition={{ duration: 0.4 }} />}
+            <span className="relative block text-[10px] font-bold uppercase tracking-[0.24em]">
+              {x.name} · {x.year}
+            </span>
+            <span className="relative block whitespace-nowrap text-sm font-semibold">{x.place.split(" (")[0]}</span>
+          </button>
         ))}
-      </ol>
-
-      <div className="hidden sm:block">
-        <div
-          ref={rail}
-          onPointerMove={scrub}
-          onPointerDown={scrub}
-          className="relative mb-12 h-24 cursor-ew-resize select-none touch-pan-y"
-        >
-          <div className="absolute inset-x-0 top-10 h-px bg-line" />
-          <motion.div
-            className="absolute top-10 h-px bg-accent"
-            style={{ left: 0 }}
-            animate={{ width: `${pct(s.year)}%` }}
-            transition={{ type: "spring", stiffness: 120, damping: 20 }}
-          />
-          <motion.div
-            className="absolute top-[34px] h-3 w-3 -translate-x-1/2 rounded-full bg-accent shadow-[0_0_24px_6px_rgba(229,34,47,0.7)]"
-            animate={{ left: `${pct(s.year)}%` }}
-            transition={{ type: "spring", stiffness: 120, damping: 20 }}
-          />
-          {seasons.map((x, i) => (
-            <button
-              key={x.name}
-              aria-pressed={i === open}
-              aria-label={`${x.name}, ${x.year}`}
-              onClick={() => setOpen(i)}
-              className="absolute top-6 -translate-x-1/2 text-center"
-              style={{ left: `${pct(x.year)}%` }}
-            >
-              <span className={`block font-display text-3xl leading-none transition-colors ${i === open ? "text-white" : "text-muted"}`}>{x.year}</span>
-              <span className={`mt-5 block whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.2em] transition-colors ${i === open ? "text-accent" : "text-muted"}`}>
-                {x.name}
-              </span>
-            </button>
-          ))}
-        </div>
-        <Reveal key={s.name}>
-          <div className="mb-6">
-            <h3 className="text-2xl font-semibold">{s.role}</h3>
-            <p className="text-muted">
-              {s.place} · {s.period}
-            </p>
-          </div>
-          <Episodes s={s} />
-        </Reveal>
       </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={s.name}
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -30 }}
+          transition={{ duration: 0.35 }}
+        >
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+            <h3 className="font-display text-4xl tracking-wide sm:text-5xl">
+              <span className="jp-outline mr-3 block text-3xl sm:inline sm:text-5xl">{s.name}</span>
+              {s.role}
+            </h3>
+          </div>
+          <p className="mt-2 text-sm text-muted">
+            {s.place} · {s.period} · {s.episodes.length} {s.episodes.length === 1 ? "episode" : "episodes"}
+          </p>
+
+          <div ref={rail} className="rail jp-episodes mt-6 gap-4 py-2">
+            {s.episodes.map((e, i) => (
+              <motion.article
+                key={e.title}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.06 * i, duration: 0.45 }}
+                whileHover={{ y: -6 }}
+                className="jp-episode group relative flex w-[78vw] max-w-[22rem] flex-col rounded-xl border border-line bg-panel p-5 sm:w-80"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-display text-4xl leading-none text-white/25 transition-colors group-hover:text-accent">E{code(i + 1)}</span>
+                  <span className="rounded bg-white/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">{e.period}</span>
+                </div>
+                <h4 className="mt-4 text-lg font-semibold leading-snug">{e.title}</h4>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{e.text}</p>
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {e.tags.map((t) => (
+                    <span key={t} className="rounded bg-white/10 px-2 py-0.5 text-[11px]">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-4 h-0.5 overflow-hidden rounded bg-white/10">
+                  <div className="jp-bar h-full bg-accent" style={{ width: `${((i + 1) / s.episodes.length) * 100}%` }} />
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
+      <Reveal>
+        <div className="mt-8 flex items-center gap-3 text-xs text-muted">
+          <span className="font-semibold uppercase tracking-[0.25em]">Series progress</span>
+          <div className="h-0.5 flex-1 overflow-hidden rounded bg-white/10">
+            <motion.div className="h-full bg-accent" animate={{ width: `${((seasons.length - open) / seasons.length) * 100}%` }} transition={{ duration: 0.5 }} />
+          </div>
+          <span>
+            {number} / {seasons.length}
+          </span>
+        </div>
+      </Reveal>
     </section>
   );
 }

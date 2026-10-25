@@ -91,3 +91,119 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* sections-a */
+.sec-bar {
+  transform-origin: left;
+  animation: sec-bar 1.4s ease-out both;
+}
+@keyframes sec-bar {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.scan-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, rgba(229, 34, 47, 0.12), transparent);
+  animation: scan 6s linear infinite;
+  pointer-events: none;
+}
+@keyframes scan {
+  from { transform: translateY(-80px); }
+  to { transform: translateY(520px); }
+}
+.marquee-track {
+  animation: marquee 45s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.rail {
+  scrollbar-width: none;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track, .scan-panel::after, .sec-bar { animation: none !important; }
+}
+
+/* sections-b */
+.jp-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.45);
+}
+.jp-episodes {
+  scroll-snap-type: x mandatory;
+}
+.jp-episode:hover {
+  border-color: rgba(229, 34, 47, 0.6);
+  box-shadow: 0 12px 40px -12px rgba(229, 34, 47, 0.45);
+}
+.jp-bar {
+  transform-origin: left;
+  animation: jp-grow 0.9s ease-out both;
+}
+@keyframes jp-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+.jp-preview {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.35s ease, opacity 0.35s ease;
+}
+.jp-preview > * {
+  overflow: hidden;
+  min-height: 0;
+}
+.jp-preview > :first-child {
+  margin-top: 0.5rem;
+}
+.jp-poster:hover .jp-preview,
+.jp-poster:focus-visible .jp-preview {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+@media (hover: none) {
+  .jp-preview {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}
+.jp-continued {
+  background: linear-gradient(90deg, #fff, #ff6b73 50%, #fff);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: jp-sweep 6s linear infinite;
+}
+@keyframes jp-sweep {
+  to {
+    background-position: -200% 0;
+  }
+}
+.jp-live {
+  box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+  animation: jp-ping 1.8s ease-out infinite;
+}
+@keyframes jp-ping {
+  to {
+    box-shadow: 0 0 0 8px rgba(52, 211, 153, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .jp-bar,
+  .jp-continued,
+  .jp-live {
+    animation: none;
+  }
+}
