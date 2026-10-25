@@ -12,6 +12,7 @@ import ContinueExploring from "./components/ContinueExploring";
 import About from "./components/About";
 import Journey from "./components/Journey";
 import Projects from "./components/Projects";
+import TopPicks from "./components/TopPicks";
 import Skills from "./components/Skills";
 import Achievements from "./components/Achievements";
 import Resume from "./components/Resume";
@@ -58,7 +59,12 @@ export default function App() {
 
   const sections: Record<string, ReactElement> = {
     journey: <Journey key="journey" />,
-    projects: <Projects key="projects" profile={profile} />,
+    projects: (
+      <div key="projects">
+        <Projects profile={profile} />
+        <TopPicks />
+      </div>
+    ),
     skills: <Skills key="skills" />,
     achievements: <Achievements key="achievements" />,
     resume: <Resume key="resume" />,
