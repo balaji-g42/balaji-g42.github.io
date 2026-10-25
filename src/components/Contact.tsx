@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { person } from "../data/portfolio";
 import Reveal from "./Reveal";
+import ToBeContinued from "./ToBeContinued";
 
 const links = [
   ["LinkedIn", person.links.linkedin],
@@ -40,7 +41,7 @@ export default function Contact() {
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_60%,rgba(229,34,47,0.2),transparent_70%)]" />
       <Reveal>
         <p className="text-[11px] font-bold uppercase tracking-[0.5em] text-accent">Next episode</p>
-        <h2 className="jp-continued mt-4 font-display text-[clamp(3rem,13vw,9rem)] leading-[0.9]">TO BE CONTINUED…</h2>
+        <ToBeContinued />
         <p className="mx-auto mt-6 max-w-xl text-lg font-semibold sm:text-2xl">Got something to build, test, deploy or fix? Let&apos;s talk. I also set up self-hosted Docker, Proxmox and Linux server stacks.</p>
 
         <div className="mx-auto mt-8 inline-flex items-center gap-3 rounded-full border border-line bg-panel/80 px-4 py-2 text-xs backdrop-blur">
