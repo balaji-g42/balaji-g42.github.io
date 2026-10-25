@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { person, profiles, type ProfileId } from "../data/portfolio";
 import Orbit from "./Orbit";
+import HeroMeta from "./HeroMeta";
 
 export default function Hero({ profile }: { profile: ProfileId }) {
   const p = profiles[profile];
@@ -27,7 +28,8 @@ export default function Hero({ profile }: { profile: ProfileId }) {
           </h1>
           <p className="mt-6 text-lg font-semibold">{person.headline}</p>
           <p className="mt-2 text-muted">{p.tagline}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <HeroMeta />
+          <div className="mt-6 flex flex-wrap gap-3">
             <a href={`#${p.ctaTarget}`} className="rounded bg-white px-6 py-3 font-semibold text-black transition-colors hover:bg-white/80">
               ▶ {p.cta}
             </a>

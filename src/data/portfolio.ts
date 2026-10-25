@@ -6,6 +6,9 @@ export const person = {
   subtitle: "THE SERIES",
   headline: "Senior AI-Driven Automation Engineer",
   location: "Bengaluru, India",
+  country: "India",
+  careerStart: "2019-03-01",
+  languages: ["Python", "Dart", "TypeScript", "JavaScript", "SQL"],
   email: "balajig4292@gmail.com",
   links: {
     linkedin: "https://www.linkedin.com/in/balaji-g-ste",
