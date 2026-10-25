@@ -71,6 +71,20 @@ body {
   animation-duration: 140s;
 }
 
+.name-shimmer {
+  background: linear-gradient(100deg, #fff 20%, #e5222f 45%, #ff8a8a 55%, #fff 80%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: name-shimmer 7s linear infinite;
+}
+
+@keyframes name-shimmer {
+  from { background-position: 120% 0; }
+  to { background-position: -120% 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;

@@ -3,14 +3,16 @@ import { useEffect, useRef } from "react";
 type Pill = { label: string; tone: "tech" | "metric"; ring: 0 | 1; phase: number };
 
 const pills: Pill[] = [
-  { label: "Python", tone: "tech", ring: 0, phase: 0 },
-  { label: "500+ regression scenarios", tone: "metric", ring: 0, phase: 1.6 },
-  { label: "Selenium", tone: "tech", ring: 0, phase: 3.2 },
-  { label: "Jenkins", tone: "tech", ring: 0, phase: 4.7 },
-  { label: "Flutter", tone: "tech", ring: 1, phase: 0.6 },
-  { label: "HIPAA-aware", tone: "metric", ring: 1, phase: 2.1 },
-  { label: "MCP", tone: "tech", ring: 1, phase: 3.7 },
-  { label: "<10h regression", tone: "metric", ring: 1, phase: 5.2 },
+  { label: "Selenium", tone: "tech", ring: 0, phase: 0.00 },
+  { label: "Playwright", tone: "tech", ring: 0, phase: 1.26 },
+  { label: "Behave BDD", tone: "tech", ring: 0, phase: 2.51 },
+  { label: "Karate DSL", tone: "tech", ring: 0, phase: 3.77 },
+  { label: "JMeter", tone: "tech", ring: 0, phase: 5.03 },
+  { label: "Healthcare Suites", tone: "metric", ring: 1, phase: 0.60 },
+  { label: "Agentic QA Framework", tone: "metric", ring: 1, phase: 1.86 },
+  { label: "Page Object Framework", tone: "metric", ring: 1, phase: 3.11 },
+  { label: "500+ scenarios", tone: "metric", ring: 1, phase: 4.37 },
+  { label: "<10h regression", tone: "metric", ring: 1, phase: 5.63 },
 ];
 
 const rings = [

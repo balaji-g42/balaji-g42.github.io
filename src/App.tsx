@@ -3,6 +3,7 @@ import Intro from "./components/Intro";
 import Backdrop from "./components/Backdrop";
 import Quote from "./components/Quote";
 import Lenis from "lenis";
+import { AnimatePresence } from "framer-motion";
 import { profiles, type ProfileId } from "./data/portfolio";
 import ProfilePicker from "./components/ProfilePicker";
 import Nav from "./components/Nav";
@@ -17,23 +18,12 @@ import OffDuty from "./components/OffDuty";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
-const STORAGE_KEY = "series-profile";
-
 function wantsIntro(): boolean {
   return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-function readProfile(): ProfileId | null {
-  try {
-    const v = localStorage.getItem(STORAGE_KEY);
-    return v && v in profiles ? (v as ProfileId) : null;
-  } catch {
-    return null;
-  }
-}
-
 export default function App() {
-  const [profile, setProfile] = useState<ProfileId | null>(readProfile);
+  const [profile, setProfile] = useState<ProfileId | null>(null);
 
   useEffect(() => {
     if (!profile) return;
@@ -53,17 +43,17 @@ export default function App() {
   const endIntro = useCallback(() => setIntro(false), []);
 
   const choose = (p: ProfileId) => {
-    try {
-      localStorage.setItem(STORAGE_KEY, p);
-    } catch {
-      return;
-    } finally {
-      window.scrollTo(0, 0);
-      setProfile(p);
-    }
+    window.scrollTo(0, 0);
+    setProfile(p);
   };
 
-  if (!profile) return <ProfilePicker onPick={choose} />;
+  if (!profile)
+    return (
+      <>
+        <ProfilePicker onPick={choose} />
+        <AnimatePresence>{intro && <Intro onDone={endIntro} />}</AnimatePresence>
+      </>
+    );
 
   const sections: Record<string, ReactElement> = {
     journey: <Journey key="journey" />,
@@ -75,7 +65,6 @@ export default function App() {
 
   return (
     <>
-      {intro && <Intro onDone={endIntro} />}
       <Backdrop />
       <Nav profile={profile} onSelect={choose} onSwitch={() => setProfile(null)} />
       <main>
