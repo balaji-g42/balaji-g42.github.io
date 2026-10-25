@@ -179,19 +179,6 @@ body {
     opacity: 1;
   }
 }
-.jp-continued {
-  background: linear-gradient(90deg, #fff, #ff6b73 50%, #fff);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: jp-sweep 6s linear infinite;
-}
-@keyframes jp-sweep {
-  to {
-    background-position: -200% 0;
-  }
-}
 .jp-live {
   box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
   animation: jp-ping 1.8s ease-out infinite;
@@ -203,7 +190,6 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .jp-bar,
-  .jp-continued,
   .jp-live {
     animation: none;
   }
@@ -251,10 +237,14 @@ select {
 button:disabled {
   cursor: not-allowed;
 }
-.cursor-play,
-.cw-card,
-.jp-poster {
+.cursor-play {
   cursor:
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'><circle cx='22' cy='22' r='20' fill='%23e5222f' stroke='white' stroke-width='2'/><path d='M17 13l15 9-15 9z' fill='white'/></svg>") 22 22,
     pointer;
+}
+.cw-card,
+.jp-poster,
+.jp-episode,
+[class*="hover:-translate-y"] {
+  cursor: pointer;
 }

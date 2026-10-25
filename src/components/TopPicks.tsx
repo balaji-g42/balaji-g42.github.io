@@ -44,7 +44,7 @@ export default function TopPicks() {
                 layoutId={`tp-${p.title}`}
                 onClick={() => setOpen({ p, id: `tp-${p.title}` })}
                 aria-label={`Number ${i + 1}: ${p.title}, details`}
-                className="cursor-play relative z-10 flex h-[85%] w-[140px] flex-col justify-between overflow-hidden rounded-lg border border-white/10 p-3 text-left shadow-[-12px_0_30px_rgba(0,0,0,0.7)] transition-transform duration-500 group-hover:-translate-y-2 sm:w-[170px]"
+                className="relative z-10 flex h-[85%] w-[140px] flex-col justify-between overflow-hidden rounded-lg border border-white/10 p-3 text-left shadow-[-12px_0_30px_rgba(0,0,0,0.7)] transition-transform duration-500 group-hover:-translate-y-2 sm:w-[170px]"
                 style={{ background: `linear-gradient(160deg, hsl(${p.hue} 70% 32%), hsl(${p.hue} 60% 9%) 75%)` }}
               >
                 <ProjectArt p={p} />
