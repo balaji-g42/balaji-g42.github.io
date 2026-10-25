@@ -27,7 +27,7 @@ export const profiles: Record<
       "7+ years making healthcare software release-ready. Regression cut from days to under 10 hours.",
     cta: "Get in touch",
     ctaTarget: "contact",
-    order: ["resume", "journey", "skills", "projects", "achievements"],
+    order: ["journey", "skills", "projects", "achievements"],
   },
   client: {
     label: "Client",
@@ -36,7 +36,7 @@ export const profiles: Record<
       "I build and test products end to end: Flutter apps, backends and automation that keeps them honest.",
     cta: "Start a project",
     ctaTarget: "contact",
-    order: ["projects", "journey", "skills", "achievements", "resume"],
+    order: ["projects", "journey", "skills", "achievements"],
   },
   developer: {
     label: "Developer",
@@ -45,7 +45,7 @@ export const profiles: Record<
       "Test automation, MCP tooling and self-hosted infra. Python first, Flutter and TypeScript when it ships.",
     cta: "Browse the code",
     ctaTarget: "projects",
-    order: ["projects", "skills", "journey", "achievements", "resume"],
+    order: ["projects", "skills", "journey", "achievements"],
   },
 };
 
