@@ -11,7 +11,7 @@ export default function ToBeContinued() {
       <motion.span
         aria-hidden
         className="text-[#e0b04a] drop-shadow-[0_0_24px_rgba(224,176,74,0.55)]"
-        initial={reduced ? false : { x: -80, opacity: 0 }}
+        initial={reduced ? false : { x: "-0.5em", opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         viewport={{ once: true, amount: 0.6 }}
         transition={{ duration: 0.9, ease }}
