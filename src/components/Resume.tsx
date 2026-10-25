@@ -86,6 +86,8 @@ function Sheet() {
   );
 }
 
+const years = Math.floor((Date.now() - new Date(person.careerStart).getTime()) / (365.25 * 864e5));
+
 export default function Resume() {
   const [open, setOpen] = useState(false);
   return (
@@ -120,7 +122,7 @@ export default function Resume() {
             </div>
             <dl className="mt-8 grid grid-cols-3 gap-px overflow-hidden rounded-xl bg-white/10 text-center">
               {[
-                { v: seasons.length, k: "Seasons" },
+                { v: `${years}+`, k: "Years" },
                 { v: projects.length, k: "Originals" },
                 { v: achievements.length, k: "Certs" },
               ].map((s) => (
