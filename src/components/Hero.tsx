@@ -1,7 +1,9 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { person, profiles, type ProfileId } from "../data/portfolio";
 import Orbit from "./Orbit";
 import HeroMeta from "./HeroMeta";
+import Reel from "./Reel";
 
 const cards = [
   { tag: "Mission", text: "Regression: days to under 10h", pos: "left-[-10%] top-[10%]", depth: 18 },
@@ -10,6 +12,7 @@ const cards = [
 
 export default function Hero({ profile }: { profile: ProfileId }) {
   const p = profiles[profile];
+  const [reel, setReel] = useState(false);
   return (
     <section
       id="top"
@@ -45,7 +48,7 @@ export default function Hero({ profile }: { profile: ProfileId }) {
       </motion.div>
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-24 sm:px-8 sm:pt-24">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-xl">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.4em] text-accent">A personal series</p>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.4em] text-accent">Mission log</p>
           <h1 className="font-display text-7xl leading-[0.9] tracking-wide sm:text-9xl">
             <span className="name-shimmer">{person.series}</span>
             <span className="block text-4xl text-white/80 sm:text-6xl">{person.subtitle}</span>
@@ -54,8 +57,11 @@ export default function Hero({ profile }: { profile: ProfileId }) {
           <p className="mt-2 text-muted">{p.tagline}</p>
           <HeroMeta />
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href={`#${p.ctaTarget}`} className="rounded bg-white px-6 py-3 font-semibold text-black transition-colors hover:bg-white/80">
-              ▶ {p.cta}
+            <button onClick={() => setReel(true)} className="rounded bg-white px-6 py-3 font-semibold text-black transition-colors hover:bg-white/80">
+              ▶ Play Intro
+            </button>
+            <a href={`#${p.ctaTarget}`} className="rounded bg-black/60 px-6 py-3 font-semibold ring-1 ring-white/25 backdrop-blur transition-colors hover:bg-white/15">
+              {p.cta}
             </a>
             <a href="#about" className="rounded bg-white/20 px-6 py-3 font-semibold backdrop-blur transition-colors hover:bg-white/30">
               ⓘ More info
@@ -63,6 +69,7 @@ export default function Hero({ profile }: { profile: ProfileId }) {
           </div>
         </motion.div>
       </div>
+      <AnimatePresence>{reel && <Reel onClose={() => setReel(false)} />}</AnimatePresence>
     </section>
   );
 }

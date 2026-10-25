@@ -8,6 +8,7 @@ import { profiles, type ProfileId } from "./data/portfolio";
 import ProfilePicker from "./components/ProfilePicker";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
+import ContinueExploring from "./components/ContinueExploring";
 import About from "./components/About";
 import Journey from "./components/Journey";
 import Projects from "./components/Projects";
@@ -69,6 +70,7 @@ export default function App() {
       <Nav profile={profile} onSelect={choose} onSwitch={() => setProfile(null)} />
       <main>
         <Hero profile={profile} />
+        <ContinueExploring profile={profile} />
         <About />
         <Quote text="Sometimes you gotta run before you can walk." />
         {profiles[profile].order.map((id) => sections[id])}
