@@ -5,7 +5,7 @@ export default function Figurine() {
   const video = useRef<HTMLVideoElement>(null);
   const last = useRef(0);
   const [sound, setSound] = useState(false);
-  const [used, setUsed] = useState(false);
+  const greeted = useRef(false);
   const [hi, setHi] = useState(false);
   const [playing, setPlaying] = useState(false);
 
@@ -25,8 +25,7 @@ export default function Figurine() {
 
   const speak = () => {
     const v = video.current;
-    if (!v || used) return;
-    setUsed(true);
+    if (!v) return;
     v.muted = false;
     v.currentTime = 0;
     last.current = 0;
@@ -34,10 +33,24 @@ export default function Figurine() {
       () => setSound(true),
       () => {
         v.muted = true;
-        setUsed(false);
         void v.play().catch(() => {});
       },
     );
+  };
+
+  const toggle = () => {
+    const v = video.current;
+    if (!v) return;
+    if (sound) {
+      v.muted = true;
+      setSound(false);
+    } else speak();
+  };
+
+  const greet = () => {
+    if (greeted.current) return;
+    greeted.current = true;
+    speak();
   };
 
   const onTime = (v: HTMLVideoElement) => {
@@ -53,7 +66,7 @@ export default function Figurine() {
   return (
     <div className="relative flex items-center justify-center pt-14">
       <div aria-hidden className="absolute inset-x-8 bottom-0 top-8 rounded-full bg-[radial-gradient(closest-side,rgba(229,34,47,0.35),rgba(224,176,74,0.12)_60%,transparent)] blur-2xl" />
-      <div className="relative" onMouseEnter={speak}>
+      <div className="relative" onMouseEnter={greet}>
         <div className="relative aspect-[9/16] h-[26rem] overflow-hidden rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] ring-1 ring-[#e0b04a]/50 sm:h-[30rem]">
           <img src="/mini-me.webp" alt="3D figurine of Balaji" width={800} height={1200} className="absolute inset-0 h-full w-full object-cover" />
           <video
@@ -76,10 +89,10 @@ export default function Figurine() {
           />
           <button
             type="button"
-            onClick={speak}
-            disabled={used}
-            aria-label={used ? "Greeting sound already played" : "Play greeting with sound"}
-            className="absolute bottom-[5%] right-[5%] grid h-10 w-10 place-items-center rounded-full bg-black/70 text-base text-white backdrop-blur transition enabled:hover:bg-black/90"
+            onClick={toggle}
+            aria-label={sound ? "Mute greeting" : "Play greeting with sound"}
+            aria-pressed={sound}
+            className="absolute bottom-[5%] right-[5%] grid h-10 w-10 place-items-center rounded-full bg-black/70 text-base text-white backdrop-blur transition hover:bg-black/90"
           >
             <span aria-hidden>{sound ? "🔊" : "🔇"}</span>
           </button>

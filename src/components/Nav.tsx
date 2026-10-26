@@ -64,7 +64,7 @@ export default function Nav({ profile, onSelect, onSwitch }: { profile: ProfileI
         <a href="#top" onClick={go("top")} className="font-display text-3xl tracking-widest text-accent">
           {person.series}
         </a>
-        <ul className="hidden gap-5 text-sm md:flex">
+        <ul className="hidden gap-5 text-sm lg:flex">
           {links.map((id) => (
             <li key={id}>
               <a href={`#${id}`} onClick={go(id)} aria-current={active === id ? "true" : undefined} className={item(id)}>
@@ -93,7 +93,7 @@ export default function Nav({ profile, onSelect, onSwitch }: { profile: ProfileI
             <span className={`text-xs text-white transition-transform ${menu ? "rotate-180" : ""}`}>▾</span>
           </button>
           {menu && (
-            <ul role="menu" className="absolute right-0 top-full w-52 rounded-md border border-line bg-black/95 py-2 shadow-xl">
+            <ul role="menu" className="absolute right-0 top-full z-50 w-52 rounded-md border border-line bg-black py-2 shadow-xl">
               {ids.filter((id) => id !== profile).map((id) => (
                 <li key={id} role="none">
                   <button role="menuitem" onClick={() => { setMenu(false); onSelect(id); }} className="flex w-full items-center gap-3 px-3 py-2 text-sm text-muted hover:text-white">
@@ -111,7 +111,7 @@ export default function Nav({ profile, onSelect, onSwitch }: { profile: ProfileI
           )}
         </div>
       </nav>
-      <div className="mx-auto max-w-7xl px-4 md:hidden">
+      <div className="mx-auto max-w-7xl px-4 lg:hidden">
         <ul className="rail flex gap-5 pb-2 text-sm" aria-label="Sections">
           {links.map((id) => (
             <li key={id} className="shrink-0">
