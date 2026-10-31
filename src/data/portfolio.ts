@@ -158,6 +158,7 @@ export type Project = {
   stack: string[];
   url?: string;
   linkLabel?: string;
+  video?: string;
   status?: string;
   hue: number;
   featured?: boolean;
@@ -167,10 +168,11 @@ export const projects: Project[] = [
   {
     title: "AI Weather",
     kind: "Mobile app",
-    pitch: "A weather app with spoken AI daily briefings, forecasts and air quality. Live on Google Play.",
+    pitch: "A free, ad-free Android weather app with forecasts, air quality and UV, plus a spoken AI morning briefing. Live on Google Play.",
     stack: ["Flutter", "Dart", "AI briefings"],
     url: "https://play.google.com/store/apps/details?id=com.aiweather.weather",
     linkLabel: "Get it on Google Play ↗",
+    video: "https://www.youtube.com/watch?v=NC6xgVWT7j4",
     hue: 205,
     featured: true,
   },

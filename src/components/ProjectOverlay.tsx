@@ -68,10 +68,19 @@ export default function ProjectOverlay({ p, layoutId, onClose }: { p: Project; l
             </span>
           ))}
         </div>
-        {p.url && (
-          <a href={p.url} target="_blank" rel="noreferrer" className="mt-8 w-fit rounded bg-white px-6 py-3 font-semibold text-black transition-colors hover:bg-white/80">
-            {linkText(p)}
-          </a>
+        {(p.url || p.video) && (
+          <div className="mt-8 flex flex-wrap gap-3">
+            {p.url && (
+              <a href={p.url} target="_blank" rel="noreferrer" className="w-fit rounded bg-white px-6 py-3 font-semibold text-black transition-colors hover:bg-white/80">
+                {linkText(p)}
+              </a>
+            )}
+            {p.video && (
+              <a href={p.video} target="_blank" rel="noreferrer" className="w-fit rounded border border-white/40 px-6 py-3 font-semibold transition-colors hover:bg-white/10">
+                Watch demo ↗
+              </a>
+            )}
+          </div>
         )}
       </motion.div>
     </motion.div>
